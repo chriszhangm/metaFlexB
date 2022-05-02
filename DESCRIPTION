@@ -8,6 +8,6 @@ Maintainer: Ming Zhang <mingz@smu.edu>
 Description: More about what it does (maybe more than one line)
 License: GPL-3
 Encoding: UTF-8
-Imports: Rcpp (>= 1.0.5)
+Imports: Rcpp,rjags,lme4,coda
 LinkingTo: Rcpp, RcppArmadillo, RcppDist
 RoxygenNote: 7.1.1

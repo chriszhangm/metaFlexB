@@ -109,7 +109,8 @@ List main_draw(int M, arma::mat xct, arma::mat nct){
                       Rcpp::Named("mu0") = mu_0,
                       Rcpp::Named("sigmaS") = sigmaS,
                       Rcpp::Named("tauS") = tauS,
-                      Rcpp::Named("w")=w);
+                      Rcpp::Named("w")=w,
+                      Rcpp::Named("phi")=phi_test);
   
 }
 
