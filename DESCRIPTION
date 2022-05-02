@@ -3,8 +3,8 @@ Type: Package
 Title: What the package does (short line)
 Version: 1.0
 Date: 2021-07-21
-Author: Ming Zhang
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: Ming Zhang, Jackson Barth, Johan Lim, Xinlei (Sherry) Wang
+Maintainer: Ming Zhang <mingz@smu.edu>
 Description: More about what it does (maybe more than one line)
 License: GPL-3
 Encoding: UTF-8
