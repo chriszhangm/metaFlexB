@@ -1,15 +1,22 @@
 # metaFlexB
-An initial version of the R package metaFlexB. 
+This is a README file of the R package _metaFlexB_. In our paper, we develop new Bayesian procedures for estimating and testing the overall treatment effect and inter-study heterogeneity in random-effects meta-analysis of rare binary events.
 
-For Mac User:
+## Installation of the package
 
--Install Xcode
+To install our package, you may execute the following codes:
 
--Check gcc version, and install gfortran binary (gfortran 8.2) if your device compiles the package fails.
+```{r, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("chriszhangm/metaFlexB")
+library(metaFlexB)
+```
+For Mac Users who cannot compile the code, please refer [this answer](https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/).
 
--More details: https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/
+## A example of using _metaFlexB_
 
+We show a toy example to apply the function `main_draw`, which produces random posterior draws of global parameters of interest.
 
+## Notes
 Alternative way to access the function:
 
 Step1: Download src folder entirely
