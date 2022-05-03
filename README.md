@@ -110,7 +110,7 @@ text(0.25,par("usr")[3]-14,expression(bold(omega)),cex=2.2,xpd=NA)
 ```
 ![Posterior_Densities](./Pics/github_pic1.png)
 
-### Model Selection
+### Model Selection using `metatest`
 ```{r,eval=FALSE}
 library(lme4)
 library(rjags)
