@@ -69,29 +69,81 @@ Xct = function(nct,Pct){
 set.seeds(1234)
 #generate large size data (k=50)
 nnn = nct(k = 50)
-ppp = Pct(mu = -5,k = 50,theta = 1,tauS = 0.8,w = 0)
+ppp = Pct(mu = -5,k = 50,theta = 0,tauS = 0.8,w = 0)
 xxx = Xct(nnn,ppp)
+```
+### Markov Chain Monte Carlo Convergence Diagnostics
+```{r,eval=FALSE}
+library(coda)
+mh.draw1 = main_draw(20000,xxx,nnn)$theta0
+mh.draw1 = mcmc(mh.draw1)
+mh.draw2 = main_draw(20000,xxx,nnn)$theta0
+mh.draw2 = mcmc(mh.draw2)
+mh.draw3 = main_draw(20000,xxx,nnn)$theta0
+mh.draw3 = mcmc(mh.draw3)
+mh.draw4 = main_draw(20000,xxx,nnn)$theta0
+mh.draw4 = mcmc(mh.draw4)
+mh.draw5 = main_draw(20000,xxx,nnn)$theta0
+mh.draw5 = mcmc(mh.draw5)
+
+mh.list = mcmc.list(list(mh.draw1,mh.draw2,mh.draw3,mh.draw4,mh.draw5))
+gelman.diag(mh.list)
+#Potential scale reduction factors:
+#Point est. Upper C.I.
+#[1,]          1          1
+gelman.plot(mh.list)
+#safe to choose 5000 as a burn-in.
 ```
 ### FlexB Estimator
 ```{r, eval = FALSE}
 rrr = main_draw(10000,xxx,nnn)
-#treatment effect
-mean(rrr$theta0[5001:10000]) #1.037
-#inter-study heterogeneity
-median(rrr$tauS[5001:10000]) #0.925
-#background incident rate
-mean(rrr$mu0[5001:10000]) #-4.93
-#variance of background incident rate
-median(rrr$sigmaS[5001:10000]) #0.53
-#ratio variablity
-table(rrr$w[5001:10000]) #prob(w==0) = 0.99
+mean(rrr$theta0[5001:10000]) #-0.07
+median(rrr$tauS[5001:10000]) #0.94
+mean(rrr$mu0[5001:10000]) #-4.88
+median(rrr$sigmaS[5001:10000]) #0.43
+table(rrr$w[5001:10000]) #prob(w==0) = 0.999
 
 #computation time (based on 64-bit operating system; i7-7700HQ CPU @2.8GHz 2.8GHz; 8-cores)
 system.time(expr=main_draw(10000,xxx,nnn)) #2.13s
 ```
-### Markov Chain Monte Carlo Convergence Diagnostics
 ### Posterior Densities of All Global Parameters
+```{r,eval=FALSE}
+par(mar = c(4.3, 4.2, 0.2, 0.5))
+par(mfrow=c(2,3))
+hist(rrr$theta0[2500:10000],freq = F,main = '',xlab='',cex.lab=1.5,cex.axis=1.8,ylim=c(0,2.8))
+text(0,par("usr")[3]-0.4,expression(bold(theta[0])),cex=2.2,xpd=NA)
+lines(density(rrr$theta0[2500:10000],adjust = 2))
+hist(rrr$tauS[2500:10000],freq = F,main = '',xlab='',ylim=c(0,1.6),cex.lab=1.5,cex.axis=1.8)
+text(1.8,par("usr")[3]-0.25,expression(bold(tau^2)),cex=2.2,xpd=NA)
+lines(density(rrr$tauS[2500:10000],adjust = 2))
+hist(rrr$mu0[2500:10000],freq = F,main = '',xlab='',cex.lab=1.5,cex.axis=1.8)
+text(-4.8,par("usr")[3]-0.5,expression(bold(mu[0])),cex=2.2,xpd=NA)
+lines(density(rrr$mu0[2500:10000],adjust = 2))
+hist(rrr$sigmaS[2500:10000],freq = F,main = '',xlab='',ylim=c(0,3),cex.lab=1.5,cex.axis=1.8)
+text(1,par("usr")[3]-0.4,expression(bold(sigma^2)),cex=2.2,xpd=NA)
+lines(density(rrr$sigmaS[2500:10000],adjust = 2))
+h.mi =hist(rrr$w[2500:10000],plot=FALSE,breaks=500)# to avoid the plot of the histogram
+h.mi$density = h.mi$counts/sum(h.mi$counts)*100
+plot(h.mi,freq=FALSE,ylab='probability(%)',main='',xlab='',cex.lab=1.5,cex.axis=1.8,bty='n')
+text(0.25,par("usr")[3]-14,expression(bold(omega)),cex=2.2,xpd=NA)
+```
 ### Model Selection
+```{r,eval=FALSE}
+library(lme4)
+library(rjags)
+metatest(xxx,nnn,"AIC")
+# Treatment effects: No.
+# Inter-study heterogeneity of treatment effects: Yes.
+metatest(xxx,nnn,"BIC")
+# Treatment effects: No.
+# Inter-study heterogeneity of treatment effects: Yes.
+metatest(xxx,nnn,"DIC")
+# Treatment effects: No.
+# Inter-study heterogeneity of treatment effects: Yes.
+metatest(xxx,nnn,"BST")
+# Treatment effects: No.
+# Inter-study heterogeneity of treatment effects: Yes.
+```
 
 
 ## Notes
