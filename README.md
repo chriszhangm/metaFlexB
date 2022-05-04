@@ -150,4 +150,4 @@ metatest(xxx,nnn,"BST")
 
 ### Citation
 ### Issues
-Please contact to mingz@smu.edu for any issue with _metaFlexB_.
+Please contact to mingz@smu.edu or swang@smu.edu for any issue with _metaFlexB_.
