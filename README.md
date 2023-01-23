@@ -10,7 +10,7 @@ install.packages("devtools")
 devtools::install_github("chriszhangm/metaFlexB")
 library(metaFlexB)
 ```
-For Mac Users who cannot compile the code, please refer [this answer](https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/).
+Otherwise, you can download the file named "metaFlexB_1.1.tar.gz" and install it in R directly. For Mac Users who cannot compile the code, please refer [this answer](https://thecoatlessprofessor.com/programming/cpp/r-compiler-tools-for-rcpp-on-macos/).
 
 ## A example of using _metaFlexB_
 
